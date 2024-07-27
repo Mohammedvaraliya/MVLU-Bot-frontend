@@ -5,7 +5,8 @@ import { useEffect, useRef } from "react";
 import ChatBubble from "../../components/ChatBubble";
 
 export default function ChatPage() {
-  let [searchParams, _] = useSearchParams();
+  // eslint-disable-next-line
+  const [searchParams, _] = useSearchParams();
   const hasResolvedQuery = useRef(false);
   const chatContianerRef = useRef<HTMLDivElement>(null);
 

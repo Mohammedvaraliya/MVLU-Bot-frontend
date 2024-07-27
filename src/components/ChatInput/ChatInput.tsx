@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 
@@ -12,22 +11,16 @@ type Inputs = {
 };
 
 export default function ChatInput(props: ChatInputProps) {
-  const { register, handleSubmit, reset, watch } = useForm<Inputs>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const query = watch("query");
+  const { register, handleSubmit, reset } = useForm<Inputs>();
 
   const { onSubmit } = props;
 
   const handleFormSubmit = async (data: Inputs) => {
-    if (onSubmit && data.query.length > 3) {
-      setIsSubmitting(true);
+    if (onSubmit) {
       reset();
       await onSubmit(data.query);
-      setIsSubmitting(false);
     }
   };
-
-  const isButtonDisabled = query?.length <= 3 || isSubmitting;
 
   if (props.variant === "chat") {
     return (
@@ -40,12 +33,10 @@ export default function ChatInput(props: ChatInputProps) {
             className="grow focus:outline-none resize-none text-sm"
             placeholder="Enter your query here."
             {...register("query", { required: true })}
-            disabled={isSubmitting}
           />
           <button
             type="submit"
             className="h-7 aspect-square flex justify-center items-center rounded bg-[#29166F]"
-            disabled={isButtonDisabled}
           >
             <svg
               width="12"
