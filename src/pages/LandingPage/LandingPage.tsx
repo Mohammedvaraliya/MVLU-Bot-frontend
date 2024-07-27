@@ -69,15 +69,22 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             <OptionsButton
+              to="/chat?query=What%20are%20the%20courses%20offered%20by%20the%20college%3F%0A%0A"
               image={carbon_education}
-              title="Course Registration Help"
+              title="Course Information"
             />
             <OptionsButton
               image={pajamas_work}
               title="Internship Opportunities"
+              to="/chat?query=Tell%20me%20something%20about%20the%20college%20Library%3F"
             />
-            <OptionsButton image={icons8_library} title="Library Resources" />
             <OptionsButton
+              to="/chat?query=Tell%20me%20something%20about%20the%20college%20Library%3F"
+              image={icons8_library}
+              title="Library Resources"
+            />
+            <OptionsButton
+              to="/chat?query=Tell%20me%20something%20about%20the%20college%20Library%3F"
               image={carbon_education_1}
               title="Graduation Requirements"
             />
