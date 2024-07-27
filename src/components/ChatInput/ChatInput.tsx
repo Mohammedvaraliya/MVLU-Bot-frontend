@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Form, useSubmit } from "react-router-dom";
+import { useSubmit } from "react-router-dom";
 
 export interface ChatInputProps {
   variant: "landing" | "chat";
