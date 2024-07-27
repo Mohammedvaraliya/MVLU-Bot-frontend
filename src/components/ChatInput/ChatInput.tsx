@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Form } from "react-router-dom";
+import { Form, useSubmit } from "react-router-dom";
 
 export interface ChatInputProps {
   variant: "landing" | "chat";
@@ -11,7 +12,9 @@ type Inputs = {
 };
 
 export default function ChatInput(props: ChatInputProps) {
+  const formRef = useRef<HTMLFormElement>(null);
   const { register, handleSubmit, reset } = useForm<Inputs>();
+  const submit = useSubmit();
 
   const { onSubmit } = props;
 
@@ -19,6 +22,13 @@ export default function ChatInput(props: ChatInputProps) {
     if (onSubmit) {
       reset();
       await onSubmit(data.query);
+    }
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLFormElement> = (e) => {
+    if (formRef.current && e.key === "Enter" && e.shiftKey == false) {
+      e.preventDefault();
+      submit(e.currentTarget);
     }
   };
 
@@ -59,7 +69,15 @@ export default function ChatInput(props: ChatInputProps) {
   if (props.variant === "landing") {
     return (
       <div className=" bg-white w-full  mt-10 px-6 py-6 rounded-2xl focus-within:shadow-2xl transition-shadow ease-in duration-150 ">
-        <Form className="flex min-h-32" method="post">
+        <form
+          ref={formRef}
+          onSubmit={(event) => {
+            submit(event.currentTarget);
+          }}
+          className="flex min-h-32"
+          onKeyDown={handleKeyDown}
+          method="post"
+        >
           <textarea
             name="message"
             className="grow focus:outline-none resize-none text-sm"
@@ -79,7 +97,7 @@ export default function ChatInput(props: ChatInputProps) {
               />
             </svg>
           </button>
-        </Form>
+        </form>
         <div className="text-xs text-[#9A9A9A] flex justify-between">
           <h4>MVLUBot 0.0.1 (Beta)</h4>
           <p className="hidden md:inline-block">
