@@ -5,6 +5,7 @@ export interface Message {
   role: "USER" | "MVLUBOT";
   loading?: boolean;
   message: string;
+  history?: Message[];
 }
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
@@ -15,14 +16,16 @@ export default function useMessage() {
   const [error, setError] = useState<string | null>(null);
 
   async function resolveQuery(query: string) {
+    const payload: Message = {
+      role: "USER",
+      message: query,
+    };
+
     setIsLoading(true);
     setMessages((curr) => {
       return [
         ...curr,
-        {
-          role: "USER",
-          message: query,
-        },
+        payload,
         {
           role: "MVLUBOT",
           message: "",
@@ -34,11 +37,13 @@ export default function useMessage() {
     setIsLoading(true);
     setError(null);
 
+    if (messages.length > 0) {
+      payload.history = messages.slice(Math.max(-10, messages.length * -1));
+      console.log(payload);
+    }
+
     try {
-      const result = await axios.post<Message>(SERVER_URL + "chat", {
-        role: "USER",
-        message: query,
-      });
+      const result = await axios.post<Message>(SERVER_URL + "chat", payload);
 
       if (result.status === 200) {
         setMessages((curr) => {

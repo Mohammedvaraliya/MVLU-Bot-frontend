@@ -34,18 +34,18 @@ export default function ChatPage() {
 
   return (
     <main className="container mx-auto max-w-[720px] pt-12 pb-[300px] px-4 lg:px-0 space-y-8">
-      <div className="space-y-3" onClick={() => scrollToBottom()}>
-        {messages.map((message) => {
+      <div className="space-y-3">
+        {messages.map((message, index) => {
           return (
-            <>
+            <div key={index}>
               <div ref={chatContianerRef} className="w-full bg-red-500"></div>
               <ChatBubble
-                key={message.message}
+                key={index}
                 user={message.role}
                 message={message.message}
                 loading={message.loading}
               />
-            </>
+            </div>
           );
         })}
       </div>
