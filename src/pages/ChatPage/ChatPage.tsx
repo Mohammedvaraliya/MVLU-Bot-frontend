@@ -5,7 +5,8 @@ import { useEffect, useRef } from "react";
 import ChatBubble from "../../components/ChatBubble";
 
 export default function ChatPage() {
-  let [searchParams, _] = useSearchParams();
+  // eslint-disable-next-line
+  const [searchParams, _] = useSearchParams();
   const hasResolvedQuery = useRef(false);
   const chatContianerRef = useRef<HTMLDivElement>(null);
 
@@ -49,7 +50,7 @@ export default function ChatPage() {
         })}
       </div>
       <div className="fixed left-0 right-0 px-4 md:px-0 mx-auto bottom-6 max-w-[720px] w-full">
-        <ChatInput variant="chat" onSumbit={handleSumbit} />
+        <ChatInput variant="chat" onSubmit={handleSumbit} />
       </div>
     </main>
   );

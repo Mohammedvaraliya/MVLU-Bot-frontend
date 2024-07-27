@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 
 export interface ChatInputProps {
   variant: "landing" | "chat";
-  onSumbit?: (query: string) => Promise<void>;
+  onSubmit?: (query: string) => Promise<void>;
 }
 
 type Inputs = {
@@ -13,26 +13,31 @@ type Inputs = {
 export default function ChatInput(props: ChatInputProps) {
   const { register, handleSubmit, reset } = useForm<Inputs>();
 
-  const { onSumbit } = props;
+  const { onSubmit } = props;
+
+  const handleFormSubmit = async (data: Inputs) => {
+    if (onSubmit) {
+      reset();
+      await onSubmit(data.query);
+    }
+  };
 
   if (props.variant === "chat") {
     return (
       <div className=" bg-white w-full  px-4 py-2  rounded-2xl focus-within:shadow-2xl transition-shadow ease-in duration-150 ">
         <form
-          onSubmit={handleSubmit(async (data) => {
-            if (onSumbit) {
-              reset();
-              await onSumbit(data.query);
-            }
-          })}
+          onSubmit={handleSubmit(handleFormSubmit)}
           className="flex items-center"
         >
           <input
             className="grow focus:outline-none resize-none text-sm"
             placeholder="Enter your query here."
-            {...register("query")}
+            {...register("query", { required: true })}
           />
-          <button className="h-7 aspect-square flex justify-center items-center rounded bg-[#29166F]">
+          <button
+            type="submit"
+            className="h-7 aspect-square flex justify-center items-center rounded bg-[#29166F]"
+          >
             <svg
               width="12"
               height="15"
