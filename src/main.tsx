@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import LandingPage, { action } from "./pages/LandingPage";
 import ChatPage from "./pages/ChatPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     children: [
