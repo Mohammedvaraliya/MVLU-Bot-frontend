@@ -15,6 +15,7 @@ export default withSentryConfig(nextConfig, {
   org: "mvlu",
   project: "javascript-nextjs",
   sentryUrl: "https://sentry.io/",
+  authToken: process.env.SENTRY_AUTH_TOKEN,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
