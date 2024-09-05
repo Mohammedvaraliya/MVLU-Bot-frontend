@@ -18,7 +18,7 @@ export default function ChatPage() {
       methods.resolveQuery(query);
       hasResolvedQuery.current = true;
     }
-  }, [query]);
+  }, [query, methods]);
 
   const scrollToBottom = () => {
     chatContianerRef.current?.scrollIntoView({ behavior: "smooth" });

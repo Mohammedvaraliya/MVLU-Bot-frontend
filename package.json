@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -17,7 +17,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
-    "react-markdown": "^9.0.1"
+    "react-markdown": "^9.0.1",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/node": "^20",

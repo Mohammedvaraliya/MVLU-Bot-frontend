@@ -27,8 +27,6 @@ export default function Document() {
           content="https://mvlubot.netlify.app/open-graph.png"
         />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <link
           rel="apple-touch-icon"
           sizes="180x180"

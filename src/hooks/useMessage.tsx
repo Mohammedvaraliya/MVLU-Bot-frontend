@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export interface Message {
   role: "USER" | "MVLUBOT";
@@ -15,7 +15,7 @@ export default function useMessage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  async function resolveQuery(query: string) {
+  const resolveQuery = useCallback(async (query: string) => {
     const payload: Message = {
       role: "USER",
       message: query,
@@ -58,10 +58,10 @@ export default function useMessage() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
 
   // Checks if the server is live (if not then initiates cold start)
-  async function ping() {
+  const ping = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -71,7 +71,7 @@ export default function useMessage() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
     ping();
