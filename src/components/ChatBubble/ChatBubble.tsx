@@ -1,7 +1,8 @@
 import Markdown from "react-markdown";
-import ChatLoader from "../ChatLoader";
+import ChatLoader from "@/components/ChatLoader";
 
 import mvlu_logo from "../../assets/mvlu_logo.png";
+import Image from "next/image";
 
 interface Member {
   name: string;
@@ -67,7 +68,7 @@ export default function ChatBubble(props: ChatBubbleProps) {
         </div>
       ) : (
         <div className="bg-[#F2F2F2] h-9 self-start  aspect-square font-bold flex justify-center items-center p-2 rounded-md">
-          <img className="h-full w-full" src={mvlu_logo} />
+          <Image className="h-full w-full" src={mvlu_logo} alt="MVLU College" />
         </div>
       )}
       <div className="font-medium">

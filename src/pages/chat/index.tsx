@@ -1,24 +1,24 @@
-import { useSearchParams } from "react-router-dom";
-import ChatInput from "../../components/ChatInput";
-import useMessage from "../../hooks/useMessage";
+import ChatInput from "@/components/ChatInput";
+import useMessage from "@/hooks/useMessage";
 import { useEffect, useRef } from "react";
-import ChatBubble from "../../components/ChatBubble";
+import ChatBubble from "@/components/ChatBubble";
+import { useRouter } from "next/router";
 
 export default function ChatPage() {
-  // eslint-disable-next-line
-  const [searchParams, _] = useSearchParams();
+  const router = useRouter();
+  const { query } = router.query as { query: string }; // Destructure your query parameters
+
   const hasResolvedQuery = useRef(false);
   const chatContianerRef = useRef<HTMLDivElement>(null);
 
   const { messages, methods } = useMessage();
 
   useEffect(() => {
-    const query = searchParams.get("query");
     if (query && !hasResolvedQuery.current) {
       methods.resolveQuery(query);
       hasResolvedQuery.current = true;
     }
-  }, [searchParams]);
+  }, [query]);
 
   const scrollToBottom = () => {
     chatContianerRef.current?.scrollIntoView({ behavior: "smooth" });

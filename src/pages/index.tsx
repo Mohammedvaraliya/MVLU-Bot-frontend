@@ -1,29 +1,17 @@
-import ChatInput from "../../components/ChatInput";
-import OptionsButton from "../../components/OptionsButton";
-
-// Assests import
-import mvlu_logo from "../../assets/mvlu_logo.png";
-import token_branded_chat from "../../assets/token-branded_chat.svg";
-import carbon_education from "../../assets/carbon_education.svg";
-import pajamas_work from "../../assets/pajamas_work.svg";
-import icons8_library from "../../assets/icons8_library.svg";
-import carbon_education_1 from "../../assets/carbon_education-1.svg";
-
-import { ActionFunctionArgs, redirect } from "react-router-dom";
-import useMessage from "../../hooks/useMessage";
-import FullPageLoader from "../../components/FullPageLoader";
+import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
+import FullPageLoader from "@/components/FullPageLoader";
+import useMessage from "@/hooks/useMessage";
+import ChatInput from "@/components/ChatInput";
+import OptionsButton from "@/components/OptionsButton";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const payload = Object.fromEntries(formData.entries()) as { message: string };
-
-  const params = new URLSearchParams();
-
-  params.append("query", payload["message"]);
-
-  return redirect("/chat?" + params.toString());
-}
+// Assets Imports
+import mvlu_logo from "@/assets/mvlu_logo.png";
+import token_branded_chat from "@/assets/token-branded_chat.svg";
+import carbon_education from "@/assets/carbon_education.svg";
+import pajamas_work from "@/assets/pajamas_work.svg";
+import icons8_library from "@/assets/icons8_library.svg";
+import carbon_education_1 from "@/assets/carbon_education-1.svg";
 
 export default function LandingPage() {
   const { isLoading } = useMessage();
@@ -35,7 +23,7 @@ export default function LandingPage() {
           className={`container mx-auto max-w-[720px] pt-12 px-4 lg:px-0 space-y-8 `}
         >
           <div className="bg-white w-fit h-28 aspect-square flex justify-center items-center rounded-2xl shadow-lg">
-            <img src={mvlu_logo} alt="MVLU Logo" />
+            <Image src={mvlu_logo} alt="MVLU College" />
           </div>
           <div>
             <h2 className="text-3xl leading-tight font-semibold">
@@ -58,7 +46,7 @@ export default function LandingPage() {
         <div className="container mx-auto max-w-[720px] px-4 md:px-0 justify-center items-center mt-12">
           <div className="flex  mb-6">
             <div className="flex items-center">
-              <img
+              <Image
                 className="w-6 h-6"
                 src={token_branded_chat}
                 alt="Get Started"
