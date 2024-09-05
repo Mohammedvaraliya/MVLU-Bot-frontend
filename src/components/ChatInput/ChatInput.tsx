@@ -1,6 +1,9 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useSubmit } from "react-router-dom";
+import { IBM_Plex_Mono } from "next/font/google";
+import { useRouter } from "next/router";
+
+const IBMPlexMono = IBM_Plex_Mono({ weight: "400", subsets: [] });
 
 export interface ChatInputProps {
   variant: "landing" | "chat";
@@ -14,7 +17,7 @@ type Inputs = {
 export default function ChatInput(props: ChatInputProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const { register, handleSubmit, reset } = useForm<Inputs>();
-  const submit = useSubmit();
+  const router = useRouter();
 
   const { onSubmit } = props;
 
@@ -25,10 +28,25 @@ export default function ChatInput(props: ChatInputProps) {
     }
   };
 
+  const handleFormRedirect = (formElement: HTMLFormElement) => {
+    const formData = new FormData(formElement);
+    const data = Object.fromEntries(formData.entries()) as {
+      message: string;
+    };
+
+    router.push({
+      pathname: "/chat",
+      query: {
+        query: data.message,
+      },
+    });
+  };
+
   const handleKeyDown: React.KeyboardEventHandler<HTMLFormElement> = (e) => {
     if (formRef.current && e.key === "Enter" && e.shiftKey == false) {
       e.preventDefault();
-      submit(e.currentTarget);
+
+      handleFormRedirect(formRef.current);
     }
   };
 
@@ -72,7 +90,8 @@ export default function ChatInput(props: ChatInputProps) {
         <form
           ref={formRef}
           onSubmit={(event) => {
-            submit(event.currentTarget);
+            event.preventDefault();
+            handleFormRedirect(event.target as HTMLFormElement);
           }}
           className="flex min-h-32"
           onKeyDown={handleKeyDown}
@@ -101,7 +120,11 @@ export default function ChatInput(props: ChatInputProps) {
         <div className="text-xs text-[#9A9A9A] flex justify-between">
           <h4>MVLUBot 0.0.1 (Beta)</h4>
           <p className="hidden md:inline-block">
-            Use <code className="px-2">shift + return</code>for new line
+            Use
+            <code className={`${IBMPlexMono.className} mx-2`}>
+              shift + return
+            </code>
+            for new line
           </p>
         </div>
       </div>

@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f2f2f2;
+  }
+
+  .chat__bubble ul {
+    padding-block: 0.75rem;
+    padding-left: 1rem;
+    list-style-type: disc;
+  }
+
+  .chat__bubble ol {
+    padding-block: 0.75rem;
+    padding-left: 1rem;
+    list-style-type: decimal;
+  }
+
+  .chat__bubble img {
+    width: 75%;
+    margin-block: 0.75rem;
+    border-radius: 1rem;
+  }
+
+  .chat__bubble a {
+    text-decoration: underline;
+  }
+}
