@@ -15,50 +15,53 @@ export default function useMessage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const resolveQuery = useCallback(async (query: string) => {
-    const payload: Message = {
-      role: "USER",
-      message: query,
-    };
+  const resolveQuery = useCallback(
+    async (query: string) => {
+      const payload: Message = {
+        role: "USER",
+        message: query,
+      };
 
-    setIsLoading(true);
-    setMessages((curr) => {
-      return [
-        ...curr,
-        payload,
-        {
-          role: "MVLUBOT",
-          message: "",
-          loading: true,
-        },
-      ];
-    });
+      setIsLoading(true);
+      setMessages((curr) => {
+        return [
+          ...curr,
+          payload,
+          {
+            role: "MVLUBOT",
+            message: "",
+            loading: true,
+          },
+        ];
+      });
 
-    setIsLoading(true);
-    setError(null);
+      setIsLoading(true);
+      setError(null);
 
-    if (messages.length > 0) {
-      payload.history = messages.slice(Math.max(-10, messages.length * -1));
-      console.log(payload);
-    }
-
-    try {
-      const result = await axios.post<Message>(SERVER_URL + "chat", payload);
-
-      if (result.status === 200) {
-        setMessages((curr) => {
-          const newArr = [...curr];
-
-          newArr[newArr.length - 1] = result.data;
-
-          return newArr;
-        });
+      if (messages.length > 0) {
+        payload.history = messages.slice(Math.max(-10, messages.length * -1));
+        console.log(payload);
       }
-    } catch {
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+
+      try {
+        const result = await axios.post<Message>(SERVER_URL + "chat", payload);
+
+        if (result.status === 200) {
+          setMessages((curr) => {
+            const newArr = [...curr];
+
+            newArr[newArr.length - 1] = result.data;
+
+            return newArr;
+          });
+        }
+      } catch {
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [messages]
+  );
 
   // Checks if the server is live (if not then initiates cold start)
   const ping = useCallback(async () => {
@@ -75,7 +78,7 @@ export default function useMessage() {
 
   useEffect(() => {
     ping();
-  }, []);
+  }, [ping]);
 
   return {
     messages,
