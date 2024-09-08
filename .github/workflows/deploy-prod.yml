@@ -1,0 +1,29 @@
+name: Deploy frontend on the server
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  pull:
+    name: Checking the code out
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Building `.env` file
+        run: |
+          echo "DB_HOST=${{ secrets.NEXT_PUBLIC_SERVER_URL }}" > .env
+          echo "DB_USER=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+      - name: Take down any compose
+        run: docker compose -p ${{secrets.PROJECT_NAME}} down
+        continue-on-error: true
+      - name: Remove the unused containers
+        run: docker container prune -f
+      - name: Remove unused images
+        run: docker image prune -a -f
+      - name: Build `Docker` image
+        run: docker compose -f ./compose/prod.compose.yaml build
+      - name: Run the compose up
+        run: docker compose -f ./compose/prod.compose.yaml -p ${{secrets.PROJECT_NAME}} -d up
