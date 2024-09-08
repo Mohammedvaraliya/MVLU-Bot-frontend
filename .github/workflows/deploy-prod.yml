@@ -1,8 +1,6 @@
 name: Deploy frontend on the server
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   pull:
@@ -26,4 +24,4 @@ jobs:
       - name: Build `Docker` image
         run: docker compose -f ./compose/prod.compose.yaml build
       - name: Run the compose up
-        run: docker compose -f ./compose/prod.compose.yaml -p ${{secrets.PROJECT_NAME}} -d up
+        run: docker compose -f ./compose/prod.compose.yaml -p ${{secrets.PROJECT_NAME}} up --detach
