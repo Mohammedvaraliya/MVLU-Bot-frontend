@@ -1,0 +1,10 @@
+# Compose for local development
+services:
+  frontend-mvlubot:
+    restart: "always"
+    build: 
+      context: ../
+    env_file:
+      - ../.env
+    ports:
+      - "8080:80"
