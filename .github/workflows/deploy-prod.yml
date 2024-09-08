@@ -1,6 +1,8 @@
-name: Deploy frontend on the server
+name: Autmmated frontend deployment on the production server
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   pull:
@@ -10,10 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Delete existing `.env` file
+        run: rm .env
       - name: Building `.env` file
         run: |
-          echo "DB_HOST=${{ secrets.NEXT_PUBLIC_SERVER_URL }}" > .env
-          echo "DB_USER=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+          echo "NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL }}" > .env
+          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
       - name: Take down any compose
         run: docker compose -p ${{secrets.PROJECT_NAME}} down
         continue-on-error: true
