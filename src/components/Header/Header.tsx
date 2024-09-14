@@ -19,7 +19,7 @@ function ProfilePicture() {
 
   return (
     <div>
-      <Menu>
+      <Menu as="div">
         <MenuButton
           className={`flex justify-center items-center  bg-white text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white ${
             !user ? "rounded" : "rounded-full"
