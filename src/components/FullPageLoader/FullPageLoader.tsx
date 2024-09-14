@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function FullPageLoader() {
   return (
     <motion.div
-      className="fixed inset-0 bg-white"
+      className="fixed inset-0 bg-white z-[100]"
       exit={{
         y: "100%",
       }}

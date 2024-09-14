@@ -12,6 +12,7 @@ import carbon_education from "@/assets/carbon_education.svg";
 import pajamas_work from "@/assets/pajamas_work.svg";
 import icons8_library from "@/assets/icons8_library.svg";
 import carbon_education_1 from "@/assets/carbon_education-1.svg";
+import Header from "@/components/Header/Header";
 
 export default function LandingPage() {
   const { isLoading } = useMessage();
@@ -19,7 +20,8 @@ export default function LandingPage() {
     <AnimatePresence mode="sync" initial={false}>
       {isLoading && <FullPageLoader />}
       <div>
-        <header
+        <Header />
+        <div
           className={`container mx-auto max-w-[720px] pt-12 px-4 lg:px-0 space-y-8 `}
         >
           <div className="bg-white w-fit h-28 aspect-square flex justify-center items-center rounded-2xl shadow-lg">
@@ -36,7 +38,7 @@ export default function LandingPage() {
               How can I help you today?
             </p>
           </div>
-        </header>
+        </div>
         <main>
           <div className="container mx-auto max-w-[720px] px-4 md:px-0 flex justify-center items-center">
             <ChatInput variant="landing" />

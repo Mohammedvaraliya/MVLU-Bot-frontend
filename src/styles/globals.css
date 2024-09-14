@@ -29,4 +29,7 @@
   .chat__bubble a {
     text-decoration: underline;
   }
+  :root {
+    --radius: 0.5rem;
+  }
 }
