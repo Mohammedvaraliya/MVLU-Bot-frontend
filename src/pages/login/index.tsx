@@ -13,7 +13,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (user) router.push("/");
-  }, [user]);
+  }, [user, router]);
 
   const handleGoogleLogin = async () => {
     try {

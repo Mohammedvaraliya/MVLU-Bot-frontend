@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, User } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 import random_svg from "@/assets/generic_profile.png";
 
