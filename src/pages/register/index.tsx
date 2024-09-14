@@ -11,7 +11,7 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (user) router.push("/");
-  }, [user]);
+  }, [user, router]);
 
   const handleRegister: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
