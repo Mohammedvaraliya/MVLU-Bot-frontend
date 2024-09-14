@@ -1,14 +1,12 @@
-import {
-  DocumentIcon,
-  EyeSlashIcon,
-  UserCircleIcon,
-} from "@heroicons/react/16/solid";
+import { DocumentIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import Image from "next/image";
 
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import { LogOut } from "lucide-react";
+import { LogOut, User } from "lucide-react";
+
+import random_svg from "@/assets/generic_profile.png";
 
 function ProfilePicture() {
   const { user, logout } = useAuth();
@@ -27,10 +25,10 @@ function ProfilePicture() {
             !user ? "rounded" : "rounded-full"
           }`}
         >
-          {user && user.photoURL && (
+          {user && (
             <div className="w-12 aspect-square m-auto">
               <Image
-                src={user.photoURL}
+                src={user?.photoURL ?? random_svg}
                 width="48"
                 height="48"
                 alt="Imge"

@@ -4,11 +4,16 @@ import Link from "next/link";
 import Head from "next/head";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import { FormEventHandler, useEffect } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
 
-  const { signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle, signInWithEmailAndPassword } = useAuth();
+
+  useEffect(() => {
+    if (user) router.push("/");
+  }, [user]);
 
   const handleGoogleLogin = async () => {
     try {
@@ -17,6 +22,25 @@ export default function LoginPage() {
     } catch (error) {
       alert("Failed to login in.");
       console.log(error);
+    }
+  };
+
+  const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+
+    const data = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+    };
+
+    const results = await signInWithEmailAndPassword(data.email, data.password);
+
+    if (!results) {
+      alert("Failed to login");
+    } else {
+      router.push("/");
     }
   };
 
@@ -38,7 +62,7 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={handleLogin} method="POST" className="space-y-6">
             <div>
               <label
                 htmlFor="email"

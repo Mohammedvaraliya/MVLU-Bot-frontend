@@ -1,8 +1,40 @@
 import Image from "next/image";
 import mvlu_college from "@/assets/mvlu_logo.png";
 import Link from "next/link";
+import { FormEventHandler, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const { createUserWithEmailPassword, user } = useAuth();
+
+  useEffect(() => {
+    if (user) router.push("/");
+  }, [user]);
+
+  const handleRegister: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+
+    const data = Object.fromEntries(formData.entries()) as {
+      name: string;
+      email: string;
+      password: string;
+    };
+
+    const results = await createUserWithEmailPassword(
+      data.email,
+      data.password
+    );
+
+    if (!results) {
+      alert("Failed to login");
+    } else {
+      router.push("/");
+    }
+  };
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -19,7 +51,7 @@ export default function RegisterPage() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form action="#" method="POST" className="space-y-6">
+        <form onSubmit={handleRegister} method="POST" className="space-y-6">
           <div>
             <label
               htmlFor="name"
@@ -29,11 +61,11 @@ export default function RegisterPage() {
             </label>
             <div className="mt-2">
               <input
-                id="email"
+                id="name"
                 name="name"
                 type="text"
                 required
-                autoComplete="email"
+                autoComplete="name"
                 className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
