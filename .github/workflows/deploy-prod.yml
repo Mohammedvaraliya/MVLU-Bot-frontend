@@ -18,6 +18,13 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL }}" > .env
           echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+          echo "NEXT_PUBLIC_APIKEY=${{ secrets.NEXT_PUBLIC_APIKEY }}" >> .env
+          echo "NEXT_PUBLIC_AUTHDOMAIN=${{ secrets.NEXT_PUBLIC_AUTHDOMAIN }}" >> .env
+          echo "NEXT_PUBLIC_PROJECT_ID=${{ secrets.NEXT_PUBLIC_PROJECT_ID }}" >> .env
+          echo "NEXT_PUBLIC_STORAGE_BUCKET=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+          echo "NEXT_PUBLIC_MESSAGING_SENDER_ID=${{ secrets.NEXT_PUBLIC_MESSAGING_SENDER_ID }}" >> .env
+          echo "NEXT_PUBLIC_APP_ID=${{ secrets.NEXT_PUBLIC_APP_ID }}" >> .env
+
       - name: Take down any compose
         run: docker compose -p ${{secrets.PROJECT_NAME}} down
         continue-on-error: true
