@@ -3,6 +3,7 @@ import useMessage from "@/hooks/useMessage";
 import { useEffect, useRef } from "react";
 import ChatBubble from "@/components/ChatBubble";
 import { useRouter } from "next/router";
+import Header from "@/components/Header/Header";
 
 export default function ChatPage() {
   const router = useRouter();
@@ -33,25 +34,28 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
-    <main className="container mx-auto max-w-[720px] pt-12 pb-[300px] px-4 lg:px-0 space-y-8">
-      <div className="space-y-3">
-        {messages.map((message, index) => {
-          return (
-            <div key={index}>
-              <div ref={chatContianerRef} className="w-full bg-red-500"></div>
-              <ChatBubble
-                key={index}
-                user={message.role}
-                message={message.message}
-                loading={message.loading}
-              />
-            </div>
-          );
-        })}
-      </div>
-      <div className="fixed left-0 right-0 px-4 md:px-0 mx-auto bottom-6 max-w-[720px] w-full">
-        <ChatInput variant="chat" onSubmit={handleSumbit} />
-      </div>
-    </main>
+    <>
+      <Header />
+      <main className="container mx-auto max-w-[720px] pt-12 pb-[300px] px-4 lg:px-0 space-y-8">
+        <div className="space-y-3">
+          {messages.map((message, index) => {
+            return (
+              <div key={index}>
+                <div ref={chatContianerRef} className="w-full bg-red-500"></div>
+                <ChatBubble
+                  key={index}
+                  user={message.role}
+                  message={message.message}
+                  loading={message.loading}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div className="fixed left-0 right-0 px-4 md:px-0 mx-auto bottom-6 max-w-[720px] w-full">
+          <ChatInput variant="chat" onSubmit={handleSumbit} />
+        </div>
+      </main>
+    </>
   );
 }
