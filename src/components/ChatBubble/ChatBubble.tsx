@@ -1,7 +1,6 @@
 import Markdown from "react-markdown";
 import ChatLoader from "@/components/ChatLoader";
-
-import mvlu_logo from "../../assets/mvlu_logo.png";
+import mvlu_logo from "@/assets/mvlu_logo.png";
 import Image from "next/image";
 
 interface Member {
