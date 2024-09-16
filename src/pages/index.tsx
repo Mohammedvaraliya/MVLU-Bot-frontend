@@ -24,7 +24,7 @@ export default function LandingPage() {
         <div
           className={`container mx-auto max-w-[720px] pt-12 px-4 lg:px-0 space-y-8 `}
         >
-          <div className="bg-white w-fit h-28 aspect-square flex justify-center items-center rounded-2xl shadow-lg">
+          <div className="bg-white w-auto h-28 aspect-square flex justify-center items-center rounded-2xl shadow-lg">
             <Image src={mvlu_logo} alt="MVLU College" />
           </div>
           <div>
