@@ -19,11 +19,13 @@ export default function LandingPage() {
     <AnimatePresence mode="sync" initial={false}>
       {isLoading && <FullPageLoader />}
       <div>
-        <header
-          className={`container mx-auto max-w-[720px] pt-12 px-4 lg:px-0 space-y-8 `}
-        >
-          <div className="bg-white w-fit h-28 aspect-square flex justify-center items-center rounded-2xl shadow-lg">
-            <Image src={mvlu_logo} alt="MVLU College" />
+        <header className="container mx-auto max-w-[720px] pt-12 px-4 lg:px-0 space-y-8">
+          <div className="bg-white w-fit h-auto aspect-square flex justify-center items-center rounded-2xl shadow-lg">
+            <Image
+              src={mvlu_logo}
+              alt="MVLU College"
+              className="w-28 h-auto sm:w-36 md:w-40 lg:w-48" 
+            />
           </div>
           <div>
             <h2 className="text-3xl leading-tight font-semibold">
@@ -44,7 +46,7 @@ export default function LandingPage() {
         </main>
 
         <div className="container mx-auto max-w-[720px] px-4 md:px-0 justify-center items-center mt-12">
-          <div className="flex  mb-6">
+          <div className="flex mb-6">
             <div className="flex items-center">
               <Image
                 className="w-6 h-6"

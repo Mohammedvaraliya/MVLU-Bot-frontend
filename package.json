@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.9",
+    "@headlessui/react": "^2.1.8",
+    "@heroicons/react": "^2.1.5",
+    "@radix-ui/react-menubar": "^1.1.1",
     "@sentry/nextjs": "8",
     "axios": "^1.7.7",
     "framer-motion": "^11.5.4",
